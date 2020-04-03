@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,6 +9,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using ToDo_Team_App.Data;
 
 namespace ToDo_Team_App {
     public class Startup {
@@ -17,10 +19,19 @@ namespace ToDo_Team_App {
         }
 
         public IConfiguration Configuration { get; }
+        public readonly string DefaultCorsPolicy = "_defaultCorsPolicy";
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services) {
-            services.AddControllers();
+            services.AddControllers(); services.AddDbContext<ToDo_Team_AppContext>(options => {
+                options.UseLazyLoadingProxies();
+                options.UseSqlServer(Configuration.GetConnectionString("ToDoTeamAppContext"));
+            });
+            services.AddCors(option =>
+                option.AddPolicy(DefaultCorsPolicy, x =>
+                    x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
+                )
+            );
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -30,6 +41,8 @@ namespace ToDo_Team_App {
             }
 
             app.UseRouting();
+
+            app.UseCors(DefaultCorsPolicy);
 
             app.UseAuthorization();
 
