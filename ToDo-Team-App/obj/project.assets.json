@@ -8754,11 +8754,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\repos\\ToDo-Team-App\\ToDo-Team-App\\ToDo-Team-App.csproj",
+      "projectUniqueName": "C:\\repos\\ToDo-Team-App-server\\ToDo-Team-App\\ToDo-Team-App.csproj",
       "projectName": "ToDo-Team-App",
-      "projectPath": "C:\\repos\\ToDo-Team-App\\ToDo-Team-App\\ToDo-Team-App.csproj",
+      "projectPath": "C:\\repos\\ToDo-Team-App-server\\ToDo-Team-App\\ToDo-Team-App.csproj",
       "packagesPath": "C:\\Users\\MAX-Student\\.nuget\\packages\\",
-      "outputPath": "C:\\repos\\ToDo-Team-App\\ToDo-Team-App\\obj\\",
+      "outputPath": "C:\\repos\\ToDo-Team-App-server\\ToDo-Team-App\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -8829,7 +8829,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.200\\RuntimeIdentifierGraph.json"
       }
     }
   }

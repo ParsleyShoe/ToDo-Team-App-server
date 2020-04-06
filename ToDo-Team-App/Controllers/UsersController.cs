@@ -79,5 +79,21 @@ namespace ToDo_Team_App.Controllers {
         private bool UserExists(int id) {
             return _context.Users.Any(e => e.Id == id);
         }
+
+        [HttpGet(("login/{username}/{password}"))]
+        public async Task<ActionResult<User>> Login(string username, string password) {
+            try {
+                var user = await _context.Users.SingleOrDefaultAsync(u => u.Username == username && u.Password == password);
+                if (user == null) return NotFound();
+                return user;
+            } catch (ArgumentNullException ex) {
+                throw new Exception("Cannot be null", ex);
+            } catch (InvalidOperationException ex) {
+                throw new Exception("Invalid username or password", ex);
+            } catch (Exception) {
+                throw;
+            }
+
+        }
     }
 }
