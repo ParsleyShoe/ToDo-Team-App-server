@@ -79,5 +79,16 @@ namespace ToDo_Team_App.Controllers {
         private bool ToDoExists(int id) {
             return _context.ToDos.Any(e => e.Id == id);
         }
+
+        [HttpGet("{userId}")]
+        public async Task<ActionResult<IEnumerable<ToDo>>> GetOwnTodos(int assignedUserId) {
+            var todo = await _context.ToDos.Where(r => r.UserId != assignedUserId).ToListAsync();
+
+            if (todo == null) {
+                return NotFound();
+            }
+
+            return todo;
+        }
     }
 }
