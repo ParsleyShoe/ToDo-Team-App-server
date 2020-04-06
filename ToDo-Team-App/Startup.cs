@@ -39,10 +39,9 @@ namespace ToDo_Team_App {
             if (env.IsDevelopment()) {
                 app.UseDeveloperExceptionPage();
             }
+             app.UseCors(DefaultCorsPolicy);
 
             app.UseRouting();
-
-            app.UseCors(DefaultCorsPolicy);
 
             app.UseAuthorization();
 
