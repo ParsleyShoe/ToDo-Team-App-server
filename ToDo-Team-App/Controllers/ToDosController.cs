@@ -90,5 +90,18 @@ namespace ToDo_Team_App.Controllers {
 
             return todo;
         }
+        public const string StatusApproved = "Approved";
+        public const string StatusRejected = "Rejected";
+
+        [HttpPut("{id}/approve")]
+        public async Task<IActionResult> Approve(int id, ToDo todo) {
+            todo.Status = StatusApproved;
+            return await PutToDo(id, todo);
+        }
+        [HttpPut("{id}/reject")]
+        public async Task<IActionResult> Reject(int id, ToDo todo) {
+            todo.Status = StatusRejected;
+            return await PutToDo(id, todo);
+        }
     }
 }
