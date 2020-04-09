@@ -18,8 +18,31 @@ namespace ToDo_Team_App.Controllers {
             _context = context;
         }
 
+        [HttpGet("/byuser/{userId}")]
+        public async Task<ActionResult<IEnumerable<ToDo>>> GetOwnTodos(int userId) {
+            var todo = await _context.ToDos.Where(t => t.UserId == userId ||
+                                                  t.AssignedUserId == userId).ToListAsync();
+
+            if (todo == null) {
+                return NotFound();
+            }
+
+            return todo;
+        }
+
+        [HttpPut("approve/{id}")]
+        public async Task<IActionResult> Approve(int id, ToDo todo) {
+            todo.Status = "Approved";
+            return await PutToDo(id, todo);
+        }
+        [HttpPut("reject/{id}")]
+        public async Task<IActionResult> Reject(int id, ToDo todo) {
+            todo.Status = "Rejected";
+            return await PutToDo(id, todo);
+        }
+
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ToDo>>> GetToDo() {
+        public async Task<ActionResult<IEnumerable<ToDo>>> GetToDos() {
             return await _context.ToDos.ToListAsync();
         }
 
@@ -80,28 +103,6 @@ namespace ToDo_Team_App.Controllers {
             return _context.ToDos.Any(e => e.Id == id);
         }
 
-        [HttpGet("{userId}")]
-        public async Task<ActionResult<IEnumerable<ToDo>>> GetOwnTodos(int assignedUserId) {
-            var todo = await _context.ToDos.Where(r => r.UserId != assignedUserId).ToListAsync();
-
-            if (todo == null) {
-                return NotFound();
-            }
-
-            return todo;
-        }
-        public const string StatusApproved = "Approved";
-        public const string StatusRejected = "Rejected";
-
-        [HttpPut("{id}/approve")]
-        public async Task<IActionResult> Approve(int id, ToDo todo) {
-            todo.Status = StatusApproved;
-            return await PutToDo(id, todo);
-        }
-        [HttpPut("{id}/reject")]
-        public async Task<IActionResult> Reject(int id, ToDo todo) {
-            todo.Status = StatusRejected;
-            return await PutToDo(id, todo);
-        }
+        
     }
 }
